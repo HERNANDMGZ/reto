@@ -18,9 +18,13 @@
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
             <td>
-                <a href="{{ route('usuarios.edit', $user->id) }}"><button type="button" class="btn btn-primary">Editar</button></a>
-                <button type="button" class="btn btn-danger">Eliminar</button>
-
+                <form action="{{route('usuarios.destroy', $user->id)}}" method="POST">
+                    <a href="{{ route('usuarios.show', $user->id) }}"><button type="button" class="btn btn-secondary">Ver</button></a>
+                    <a href="{{ route('usuarios.edit', $user->id) }}"><button type="button" class="btn btn-primary">Editar</button></a>
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
             </td>
         </tr>
         @endforeach
