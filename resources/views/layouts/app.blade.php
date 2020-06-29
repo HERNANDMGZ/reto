@@ -266,7 +266,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <!-- NO QUITAR -->
-            <strong>Tutoriales YouTube
+            <strong>Reto Desarrolladores Jr.
                 <div class="float-right d-none d-sm-inline-block">
                     <b>Version</b> 1.0
                 </div>

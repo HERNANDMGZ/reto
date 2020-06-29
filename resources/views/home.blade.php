@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    Pagina en desarrollo
+                    MERCATODO
                 </div>
             </div>
         </div>
