@@ -8,15 +8,15 @@
     <form action="/usuarios" method="POST">
         @csrf
         <div class="form-group">
-            <label for="name">name</label>
+            <label for="name">Nombre</label>
             <input type="text" class="form-control" name="name" placeholder="Escribe tu nombre">
         </div>
         <div class="form-group">
-            <label for="email">email</label>
+            <label for="email">Correo</label>
             <input type="email" class="form-control" name="email" placeholder="Correo Electronico">
         </div>
         <div class="form-group">
-            <label for="password">password</label>
+            <label for="password">Contraseña</label>
             <input type="password" class="form-control" name="password" placeholder="Contraseña">
         </div>
         <button type="submit" class="btn btn-primary">Registrar</button>
