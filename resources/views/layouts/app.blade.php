@@ -113,28 +113,14 @@
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-sticky-note"></i>
-                                <p>Notas<i class="fas fa-angle-left right"></i></p>
+                                <p>Productos<i class="fas fa-angle-left right"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="notas/todas"
-                                       class="{{ Request::path() === 'notas/todas' ? 'nav-link active' : 'nav-link' }}">
+                                    <a href="products"
+                                       class="{{ Request::path() === 'products' ? 'nav-link active' : 'nav-link' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Todas</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="notas/favoritas"
-                                       class="{{ Request::path() === 'notas/favoritas' ? 'nav-link active' : 'nav-link' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Favoritas</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="notas/archivadas"
-                                       class="{{ Request::path() === 'notas/archivadas' ? 'nav-link active' : 'nav-link' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Archivadas</p>
+                                        <p>Todos</p>
                                     </a>
                                 </li>
                             </ul>
