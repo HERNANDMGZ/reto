@@ -70,9 +70,11 @@ class UserController extends Controller
      */
     public function update(UserFormRequest $request, $id)
     {
+
         $usuario = User::findOrFail($id);
         $usuario->name  = $request->get('name');
         $usuario->email =$request->get('email');
+        $usuario->status = $request->get('status');
 
         $usuario->update();
 

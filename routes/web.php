@@ -37,8 +37,7 @@ PUT/PATCH/:id => actualiza el producto
 DELETE /products/:id => Elimina el producto
  */
 
-Route::resource('products', 'ProductsController')
-;
+Route::resource('products', 'ProductsController');
 
 
 

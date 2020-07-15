@@ -19,12 +19,19 @@
                     @method('PATCH')
                     @csrf
                     <div class="form-group">
-                        <label for="name">name</label>
+                        <label for="name">Nombre</label>
                         <input type="text" class="form-control" name="name" value="{{$user->name}}" placeholder="Escribe tu nombre">
                     </div>
                     <div class="form-group">
-                        <label for="email">email</label>
+                        <label for="email">Correo</label>
                         <input type="email" class="form-control" name="email" value="{{$user->email}}" placeholder="Correo Electronico">
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Estado:</label>
+                        <select name="status" id="status" class="form-control">
+                            <option value=1>Activo</option>
+                            <option value=0>Inactivo</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                     <button type="reset" class="btn btn-danger">Cancelar</button>
