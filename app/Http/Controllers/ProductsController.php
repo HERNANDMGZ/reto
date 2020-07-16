@@ -80,8 +80,8 @@ class ProductsController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->name  = $request->get('name');
-        $product->description =$request->get('description');
         $product->pricing =$request->get('pricing');
+        $product->description =$request->get('description');
         $product->status = $request->get('status');
 
         $product->update();

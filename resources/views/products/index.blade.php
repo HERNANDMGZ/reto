@@ -11,8 +11,8 @@
         <tr>
             <td>Id</td>
             <td>Titulo</td>
-            <td>Descripcion</td>
             <td>Precio</td>
+            <td>Descripcion</td>
             <td>Estado</td>
         </tr>
         </thead>
@@ -23,7 +23,6 @@
                 <td>{{$product->name}}</td>
                 <td>{{$product->pricing}}</td>
                 <td>{{$product->description}}</td>
-
                 @if($product->status === 1)
                     <td>Activo</td>
                 @else
