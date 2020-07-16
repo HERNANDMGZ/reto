@@ -7,13 +7,4 @@
             <p class="lead">{{ $user->email }}</p>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
 @endsection
