@@ -111,19 +111,10 @@
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="/products" class="nav-link">
                                 <i class="nav-icon far fa-sticky-note"></i>
                                 <p>Productos<i class="fas fa-angle-left right"></i></p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="products"
-                                       class="{{ Request::path() === 'products' ? 'nav-link active' : 'nav-link' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Todos</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </nav>

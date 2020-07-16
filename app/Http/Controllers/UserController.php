@@ -78,7 +78,6 @@ class UserController extends Controller
 
         $usuario->update();
 
-
         return redirect('usuarios');
     }
 

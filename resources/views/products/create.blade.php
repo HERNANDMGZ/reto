@@ -9,16 +9,16 @@
                 <form action="/products" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="title">Titulo</label>
+                        <label for="name">Titulo</label>
                         <input type="text" class="form-control" name="name" placeholder="Titulo">
                     </div>
                     <div class="form-group">
                         <label for="pricing">Precio</label>
-                        <input type="number" class="form-control" name="email" placeholder="Precio...">
+                        <input type="number" class="form-control" name="pricing" placeholder="Precio...">
                     </div>
                     <div class="form-group">
                         <label for="description">Descripcion</label>
-                        <input type="textarea" class="form-control" name="password" placeholder="Descripcion...">
+                        <input type="text" class="form-control" name="description" placeholder="Descripcion...">
                     </div>
                     <button type="submit" class="btn btn-primary">Agregar</button>
                     <button type="reset" class="btn btn-danger">Cancelar</button>
