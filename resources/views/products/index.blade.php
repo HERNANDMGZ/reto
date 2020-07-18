@@ -45,18 +45,10 @@
                     </form>
                 </td>
             </tr>
-
-
-
-
-
-
-
-
         @endforeach
-
         </tbody>
     </table>
+    {{$products->Links()}}
 </div>
 
 
