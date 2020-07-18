@@ -3,7 +3,14 @@
 @section('content')
 
 <div class="big-padding text-center blue-grey white-text">
-    <h1>PRODUCTOS </h1>
+    <h2>PRODUCTOS<a href="products/create"><button type="button" class="btn btn-success float-right">Agregar Producto</button></a></h2>
+    <h6>
+        @if($search)
+        <div class ="alert alert-primary" role="alert">
+            resultados de tu busqueda "{{$search}}" son:
+        </div>
+            @endif
+    </h6>
 </div>
 <div class="container">
     <table class="table table-bordered">
