@@ -19,7 +19,6 @@ class UserController extends Controller
     {
         $users = User::all();
         return view('usuarios.index', ['users' => $users]);
-
     }
 
     /**
@@ -37,9 +36,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $usuario = new User();
-        $usuario->name  =request ('name');
-        $usuario->email =request ('email');
-        $usuario->password =request ('password');
+        $usuario->name  =request('name');
+        $usuario->email =request('email');
+        $usuario->password =request('password');
 
         $usuario->save();
         return redirect('/usuarios');
@@ -70,7 +69,6 @@ class UserController extends Controller
      */
     public function update(UserFormRequest $request, $id)
     {
-
         $usuario = User::findOrFail($id);
         $usuario->name  = $request->get('name');
         $usuario->email =$request->get('email');
@@ -90,6 +88,5 @@ class UserController extends Controller
         $usuario = User::findOrFail($id);
         $usuario->delete();
         return redirect('/usuarios');
-
     }
 }

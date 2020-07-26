@@ -20,7 +20,6 @@ class CreateProductsTable extends Migration
             $table->decimal('pricing', '9', '4');
             $table->boolean('status')->default(true);
             $table->timestamps();
-
         });
     }
 

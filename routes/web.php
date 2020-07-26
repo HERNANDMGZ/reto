@@ -16,17 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-
 })->middleware('verified');
 
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource ('usuarios', 'UserController')->middleware('auth');
+Route::resource('usuarios', 'UserController')->middleware('auth');
 
 Route::resource('products', 'ProductsController')->middleware('auth');
-
-
-
-

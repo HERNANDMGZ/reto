@@ -105,7 +105,9 @@
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Usuarios
-                                    <?php use App\User; $users_count = User::all()->count(); ?>
+                                    <?php use App\User;
+
+$users_count = User::all()->count(); ?>
                                     <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
                                 </p>
                             </a>

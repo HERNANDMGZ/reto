@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 
-
 class ProductsController extends Controller
 {
     /**
@@ -14,15 +13,14 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-
     {
         $query = trim($request->get('search'));
 
-        if ($request){
+        if ($request) {
             $products = Product::where('name', 'LIKE', '%' . $query . '%')
                 ->orderBy('id', 'asc')
                 ->paginate(5);
-            return view('products.index',['products'=> $products,'search'=>$query]);
+            return view('products.index', ['products'=> $products,'search'=>$query]);
         }
 
         //$products = Product::all();
@@ -48,9 +46,9 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $product = new Product();
-        $product->name  =request ('name');
-        $product->description =request ('description');
-        $product->pricing =request ('pricing');
+        $product->name  =request('name');
+        $product->description =request('description');
+        $product->pricing =request('pricing');
 
         $product->save();
         return redirect('/products');
@@ -109,6 +107,5 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
         return redirect('/products');
-
     }
 }
