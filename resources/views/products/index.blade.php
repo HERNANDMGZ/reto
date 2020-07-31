@@ -50,13 +50,6 @@
     </table>
     {{$products->Links()}}
 </div>
-
-
-
-
-
-
-
 @endsection
 
 
