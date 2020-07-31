@@ -99,6 +99,8 @@
                                 <p>Inicio</p>
                             </a>
                         </li>
+
+
                         @can('administrador')
                         <li class="nav-item">
                             <a href={{url('usuarios')}}
@@ -112,6 +114,19 @@
                             </a>
                         </li>
                         @endcan
+
+                        @can('administrador')
+                            <li class="nav-item">
+                                <a href={{url('roles')}}
+                                    class="{{ Request::path() === 'roles' ? 'nav-link active' : 'nav-link' }}">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Roles</p>
+                                </a>
+                            </li>
+                        @endcan
+
+
+
                         <li class="nav-item has-treeview">
                             <a href="/products" class="nav-link">
                                 <i class="nav-icon far fa-sticky-note"></i>
