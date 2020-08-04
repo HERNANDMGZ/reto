@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 mx-auto">
                 <h2>Roles de Usuario</h2>
                 <table class="table table-hover">
                     <thead>
