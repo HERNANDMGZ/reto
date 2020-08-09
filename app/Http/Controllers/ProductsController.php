@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductFormRequest;
 use Illuminate\Http\Request;
 use App\Product;
 
@@ -43,23 +44,24 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductFormRequest $request)
+
     {
-
-
         $product = new Product();
         $product->name  =request('name');
         $product->description =request('description');
         $product->pricing =request('pricing');
 
-        $image = $request->file('image');
+        if ($request ->hasfile('image')){
 
-        $name_image = $image->getClientOriginalName();
+            $image = $request->file('image');
 
-        \Storage::disk('local')->put($name_image,  \File::get($image));
-        $product->image = $name_image;
+            $name_image = $image-> date("Y_m_d_h_i_s").random_int(100, 999).'.'.$image->getClientOriginalExtension();
 
+            \Storage::disk('public')->put($name_image,  \File::get($image));
+            $product->image = $name_image;
 
+        }
         $product->save();
         return redirect('/products');
     }
