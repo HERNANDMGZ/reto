@@ -45,10 +45,20 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $product = new Product();
         $product->name  =request('name');
         $product->description =request('description');
         $product->pricing =request('pricing');
+
+        $image = $request->file('image');
+
+        $name_image = $image->getClientOriginalName();
+
+        \Storage::disk('local')->put($name_image,  \File::get($image));
+        $product->image = $name_image;
+
 
         $product->save();
         return redirect('/products');
