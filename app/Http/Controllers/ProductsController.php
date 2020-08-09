@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\ProductFormRequest;
 use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Support\Facades\Cache;
 
 class ProductsController extends Controller
 {
@@ -35,7 +37,13 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Cache::rememberForever ('category', function (){
+
+        return Category::all();
+    });
+
+        return view('products.create', ['categories' => $categories]);
+
     }
 
     /**
@@ -51,6 +59,7 @@ class ProductsController extends Controller
         $product->name  =request('name');
         $product->description =request('description');
         $product->pricing =request('pricing');
+        $product->category_id =request('category');
 
         if ($request->hasFile('image')){
 

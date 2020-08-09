@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('image')->default('default.png');
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('product_categories');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

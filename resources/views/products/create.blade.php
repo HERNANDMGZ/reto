@@ -8,6 +8,18 @@
 
                 <form action="/products" method="POST" enctype="multipart/form-data">
                     @csrf
+
+                    <div class="form-group">
+                        <label for="name">Categoria</label>
+                        <select name ="category" id= "category" class="form-control">
+
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+
+                        @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="name">Titulo</label>
                         <input type="text" class="form-control" name="name" placeholder="Titulo">
@@ -20,6 +32,8 @@
                         <label for="description">Descripcion</label>
                         <input type="text" class="form-control" name="description" placeholder="Descripcion...">
                     </div>
+
+
                     <div class="form-group">
                         <label for="image">Imagen</label>
                         <input type="file" class="form-control" name="image">
