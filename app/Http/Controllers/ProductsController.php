@@ -52,14 +52,14 @@ class ProductsController extends Controller
         $product->description =request('description');
         $product->pricing =request('pricing');
 
-        if ($request ->hasfile('image')){
+        if ($request->hasFile('image')){
 
             $image = $request->file('image');
 
-            $name_image = $image-> date("Y_m_d_h_i_s").random_int(100, 999).'.'.$image->getClientOriginalExtension();
+            $name_image=date("Y_m_d_h_i_s").random_int(100, 999).'.'.$image->getClientOriginalExtension();
 
             \Storage::disk('public')->put($name_image,  \File::get($image));
-            $product->image = $name_image;
+            $product->image=$name_image;
 
         }
         $product->save();
@@ -97,11 +97,25 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $product = Product::findOrFail($id);
         $product->name  = $request->get('name');
         $product->pricing =$request->get('pricing');
         $product->description =$request->get('description');
         $product->status = $request->get('status');
+
+        if ($request->hasFile('image'))
+        {
+
+            $image=$request->file('image');
+
+            $name_image=date("Y_m_d_h_i_s").random_int(100, 999).'.'.$image->getClientOriginalExtension();
+
+            \Storage::disk('public')->put($name_image,  \File::get($image));
+
+            $product->image=$name_image;
+
+        }
 
         $product->update();
 
