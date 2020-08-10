@@ -19,6 +19,15 @@
                     @method('PATCH')
                     @csrf
                     <div class="form-group">
+                        <label for="name">Categoria</label>
+                        <select name ="category" id= "category" class="form-control">
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" class="form-control" name="name" value="{{$product->name}}" placeholder="Nombre del articulo...">
                     </div>

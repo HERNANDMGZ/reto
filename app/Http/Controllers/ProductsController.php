@@ -94,7 +94,12 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        return view('products.edit', ['product' => Product::findOrFail($id)]);
+        $categories = Cache::rememberForever ('category', function (){
+
+            return Category::all();
+        });
+
+        return view('products.edit', ['product' => Product::findOrFail($id), 'categories'=>$categories]);
     }
 
     /**
