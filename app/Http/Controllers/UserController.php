@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserFormRequest;
+use App\Role;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
@@ -59,7 +61,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('usuarios.edit', ['user' => User::findOrFail($id)]);
+        $roles = Cache::rememberForever ('role', function (){
+
+            return Role::all();
+
+        });
+
+        return view('usuarios.edit', ['user' => User::findOrFail($id), 'roles'=>$roles]);
     }
 
     /**
