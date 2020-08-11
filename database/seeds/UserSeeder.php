@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
             'role_id'=> 1,
             'name'=> 'admin',
             'email'=> 'admin@admin.com',
-            'password'=> 'admin123',
+            'password'=> '$2y$10$LOy2p1ZTyvlTKbG.v7N12u0PrXwfIQ7o/7aZDv9A7WGphQ9QiW5O.',
             'status'=>1,
             'email_verified_at'=>'2020-10-08',
 
