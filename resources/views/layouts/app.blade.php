@@ -99,25 +99,41 @@
                                 <p>Inicio</p>
                             </a>
                         </li>
+
+
+                        @auth
+                        @if(Auth::user()->role_id === 1)
+
                         <li class="nav-item">
                             <a href={{url('usuarios')}}
                                class="{{ Request::path() === 'usuarios' ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Usuarios
-                                    <?php use App\User;
-
-$users_count = User::all()->count(); ?>
+                                    <?php
+                                    $users_count = App\User::all()->count();
+                                    ?>
                                     <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
                                 </p>
                             </a>
                         </li>
+                        @endif
+                        @if(Auth::user()->role_id === 1 || Auth::user()->role_id === 3)
+
                         <li class="nav-item has-treeview">
                             <a href="/products" class="nav-link">
                                 <i class="nav-icon far fa-sticky-note"></i>
                                 <p>Productos<i class="fas fa-angle-left right"></i></p>
                             </a>
                         </li>
+                            @endif
+                            @endauth
+
+
+
+
+
+                        
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

@@ -19,8 +19,8 @@
                     @method('PATCH')
                     @csrf
                     <div class="form-group">
-                        <label for="name">Categoria</label>
-                        <select name ="category" id= "category" class="form-control">
+                        <label for="name">Rol</label>
+                        <select name ="role" id= "role" class="form-control">
                             @foreach($roles as $role)
                                 <option value="{{$role->id}}">{{$role->name}}</option>
                             @endforeach

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -40,7 +41,7 @@ class UserController extends Controller
         $usuario = new User();
         $usuario->name  =request('name');
         $usuario->email =request('email');
-        $usuario->password =request('password');
+        $usuario->password = Hash::make(request('password'));
 
         $usuario->save();
         return redirect('/usuarios');
@@ -81,6 +82,7 @@ class UserController extends Controller
         $usuario->name  = $request->get('name');
         $usuario->email =$request->get('email');
         $usuario->status = $request->get('status');
+        $usuario->role_id = $request->get('role');
 
         $usuario->update();
 
