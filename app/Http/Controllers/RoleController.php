@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Role;
+use http\Env\Response;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -12,7 +13,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() :Response
     {
         $roles = Role::all();
         return view('roles.index', ['roles'=>$roles]);

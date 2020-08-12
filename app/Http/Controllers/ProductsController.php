@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Requests\ProductFormRequest;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Product;
 use Illuminate\Support\Facades\Cache;
@@ -39,13 +40,11 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $categories = Cache::rememberForever ('category', function (){
-
-        return Category::all();
-    });
+        $categories = Cache::rememberForever('category', function () {
+            return Category::all();
+        });
 
         return view('products.create', ['categories' => $categories]);
-
     }
 
     /**
@@ -55,7 +54,6 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ProductFormRequest $request)
-
     {
         $product = new Product();
         $product->name  =request('name');
@@ -63,15 +61,13 @@ class ProductsController extends Controller
         $product->pricing =request('pricing');
         $product->category_id =request('category');
 
-        if ($request->hasFile('image')){
-
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
 
             $name_image=date("Y_m_d_h_i_s").random_int(100, 999).'.'.$image->getClientOriginalExtension();
 
-            \Storage::disk('public')->put($name_image,  \File::get($image));
+            \Storage::disk('public')->put($name_image, \File::get($image));
             $product->image=$name_image;
-
         }
         $product->save();
         Log::info('Product Created : ', ['product_id'=> $product->id , 'user_id' => Auth::id()]);
@@ -97,8 +93,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $categories = Cache::rememberForever ('category', function (){
-
+        $categories = Cache::rememberForever('category', function () {
             return Category::all();
         });
 
@@ -114,24 +109,20 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $product = Product::findOrFail($id);
         $product->name  = $request->get('name');
         $product->pricing =$request->get('pricing');
         $product->description =$request->get('description');
         $product->status = $request->get('status');
 
-        if ($request->hasFile('image'))
-        {
-
+        if ($request->hasFile('image')) {
             $image=$request->file('image');
 
             $name_image=date("Y_m_d_h_i_s").random_int(100, 999).'.'.$image->getClientOriginalExtension();
 
-            \Storage::disk('public')->put($name_image,  \File::get($image));
+            \Storage::disk('public')->put($name_image, \File::get($image));
 
             $product->image=$name_image;
-
         }
 
         $product->update();
@@ -145,7 +136,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) :Response
     {
         $product = Product::findOrFail($id);
         $product->delete();

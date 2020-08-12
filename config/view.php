@@ -36,4 +36,3 @@ return [
     'paginate' => env('PAGINATE', 3),
 
 ];
-

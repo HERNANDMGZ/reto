@@ -26,8 +26,6 @@ class CreateUsersTable extends Migration
 
             $table->foreign('role_id')->references('id')->on('roles');
         });
-
-
     }
 
     /**

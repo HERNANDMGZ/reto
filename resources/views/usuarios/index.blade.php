@@ -11,7 +11,7 @@
             <th scope="col">Email</th>
             <th scope="col">Estado</th>
         </tr>
-        </thead>z
+        </thead>
         <tbody>
         @foreach($users as $user)
         <tr>

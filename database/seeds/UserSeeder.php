@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert ([
+        DB::table('users')->insert([
             'role_id'=> 1,
             'name'=> 'admin',
             'email'=> 'admin@admin.com',
@@ -21,6 +21,5 @@ class UserSeeder extends Seeder
             'email_verified_at'=>'2020-10-08',
 
         ]);
-
     }
 }

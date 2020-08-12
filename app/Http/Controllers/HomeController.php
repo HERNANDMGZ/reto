@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Void_;
 
 class HomeController extends Controller
 {
@@ -12,7 +14,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct() :Void
     {
         $this->middleware(['auth','verified']);
     }
@@ -22,10 +24,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-        {
+    public function index() :Renderable
+    {
         $products = Product::all();
         return view('welcome', ['products' => $products]);
-
     }
 }

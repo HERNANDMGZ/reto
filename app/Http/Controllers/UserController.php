@@ -62,10 +62,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $roles = Cache::rememberForever ('role', function (){
-
+        $roles = Cache::rememberForever('role', function () {
             return Role::all();
-
         });
 
         return view('usuarios.edit', ['user' => User::findOrFail($id), 'roles'=>$roles]);
