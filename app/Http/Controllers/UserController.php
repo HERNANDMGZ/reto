@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserFormRequest;
+use App\Role;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\User;
-use App\Role;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,7 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(config('view.paginate'));
         return view('usuarios.index', ['users' => $users]);
     }
 
@@ -27,8 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-        return view('usuarios.create', ['roles'=>$roles]);
+        return view('usuarios.create');
     }
 
     /**
@@ -40,7 +41,7 @@ class UserController extends Controller
         $usuario = new User();
         $usuario->name  =request('name');
         $usuario->email =request('email');
-        $usuario->password =bcrypt(request('password'));
+        $usuario->password = Hash::make(request('password'));
 
         $usuario->save();
         return redirect('/usuarios');
@@ -61,7 +62,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('usuarios.edit', ['user' => User::findOrFail($id)]);
+        $roles = Cache::rememberForever ('role', function (){
+
+            return Role::all();
+
+        });
+
+        return view('usuarios.edit', ['user' => User::findOrFail($id), 'roles'=>$roles]);
     }
 
     /**
@@ -75,6 +82,7 @@ class UserController extends Controller
         $usuario->name  = $request->get('name');
         $usuario->email =$request->get('email');
         $usuario->status = $request->get('status');
+        $usuario->role_id = $request->get('role');
 
         $usuario->update();
 

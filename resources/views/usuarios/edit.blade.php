@@ -19,6 +19,14 @@
                     @method('PATCH')
                     @csrf
                     <div class="form-group">
+                        <label for="name">Rol</label>
+                        <select name ="role" id= "role" class="form-control">
+                            @foreach($roles as $role)
+                                <option value="{{$role->id}}">{{$role->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" class="form-control" name="name" value="{{$user->name}}" placeholder="Escribe tu nombre">
                     </div>

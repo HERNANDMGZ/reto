@@ -15,9 +15,18 @@
                     </div>
                 @endif
 
-                <form action="{{route('products.update', $product ->id )}}" method="POST">
+                <form action="{{route('products.update', $product ->id )}}" method="POST" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
+                    <div class="form-group">
+                        <label for="name">Categoria</label>
+                        <select name ="category" id= "category" class="form-control">
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" class="form-control" name="name" value="{{$product->name}}" placeholder="Nombre del articulo...">
@@ -30,6 +39,11 @@
                         <label for="description">Descripcion</label>
                         <input type="text" class="form-control" name="description" value="{{$product->description}}" placeholder="Describe tu producto...">
                     </div>
+                    <div class="form-group">
+                        <label for="image">Imagen</label>
+                        <input type="file" class="form-control" name="image">
+                    </div>
+
                     <div class="form-group">
                         <label for="status">Estado:</label>
                         <select name="status" id="status" class="form-control">

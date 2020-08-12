@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Http\Requests\ProductFormRequest;
 use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -19,7 +24,7 @@ class ProductsController extends Controller
         if ($request) {
             $products = Product::where('name', 'LIKE', '%' . $query . '%')
                 ->orderBy('id', 'asc')
-                ->paginate(5);
+                ->paginate(config('view.paginate'));
             return view('products.index', ['products'=> $products,'search'=>$query]);
         }
 
@@ -34,7 +39,13 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Cache::rememberForever ('category', function (){
+
+        return Category::all();
+    });
+
+        return view('products.create', ['categories' => $categories]);
+
     }
 
     /**
@@ -43,14 +54,27 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductFormRequest $request)
+
     {
         $product = new Product();
         $product->name  =request('name');
         $product->description =request('description');
         $product->pricing =request('pricing');
+        $product->category_id =request('category');
 
+        if ($request->hasFile('image')){
+
+            $image = $request->file('image');
+
+            $name_image=date("Y_m_d_h_i_s").random_int(100, 999).'.'.$image->getClientOriginalExtension();
+
+            \Storage::disk('public')->put($name_image,  \File::get($image));
+            $product->image=$name_image;
+
+        }
         $product->save();
+        Log::info('Product Created : ', ['product_id'=> $product->id , 'user_id' => Auth::id()]);
         return redirect('/products');
     }
 
@@ -73,7 +97,12 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        return view('products.edit', ['product' => Product::findOrFail($id)]);
+        $categories = Cache::rememberForever ('category', function (){
+
+            return Category::all();
+        });
+
+        return view('products.edit', ['product' => Product::findOrFail($id), 'categories'=>$categories]);
     }
 
     /**
@@ -85,11 +114,25 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $product = Product::findOrFail($id);
         $product->name  = $request->get('name');
         $product->pricing =$request->get('pricing');
         $product->description =$request->get('description');
         $product->status = $request->get('status');
+
+        if ($request->hasFile('image'))
+        {
+
+            $image=$request->file('image');
+
+            $name_image=date("Y_m_d_h_i_s").random_int(100, 999).'.'.$image->getClientOriginalExtension();
+
+            \Storage::disk('public')->put($name_image,  \File::get($image));
+
+            $product->image=$name_image;
+
+        }
 
         $product->update();
 
