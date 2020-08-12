@@ -22,7 +22,7 @@ class ProductsController extends Controller
         if ($request) {
             $products = Product::where('name', 'LIKE', '%' . $query . '%')
                 ->orderBy('id', 'asc')
-                ->paginate(5);
+                ->paginate(config('view.paginate'));
             return view('products.index', ['products'=> $products,'search'=>$query]);
         }
 
