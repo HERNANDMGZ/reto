@@ -65378,6 +65378,24 @@ pre { margin-top: 0; margin-bottom: 0; font-family: "SFMono-Regular", Consolas, 
   background-color: white;
 }
 
+.white {
+  background-color: white;
+}
+
+.body {
+  padding: 2rem 0rem;
+}
+
+.like {
+  font-size: 1.5rem;
+}
+
+.card-img-top {
+  height: 11vw;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

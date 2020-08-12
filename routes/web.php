@@ -14,32 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
 
-})->middleware('verified');
+Route::get('/', 'HomeController@index')->middleware('verified');
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index');
+Route::resource('usuarios', 'UserController')->middleware('auth');
 
-Route::resource ('usuarios', 'UserController')->middleware('auth');
+Route::resource('products', 'ProductsController')->middleware('auth');
 
-/* SECCION PRODUCTOS
-
-  GET /products => index
-POST/productos => Store
-GET/products/create => Formulario para crear
-
-GET/products/:id => Mostrar un producto con id
-GET/products/:id/edit => Formulario de edicion de producto
-PUT/PATCH/:id => actualiza el producto
-DELETE /products/:id => Elimina el producto
- */
-
-Route::resource('products', 'ProductsController')
-;
-
-
-
-
+Route::resource('roles', 'RoleController')->middleware('auth');
