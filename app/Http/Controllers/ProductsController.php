@@ -7,6 +7,8 @@ use App\Http\Requests\ProductFormRequest;
 use Illuminate\Http\Request;
 use App\Product;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -72,6 +74,7 @@ class ProductsController extends Controller
 
         }
         $product->save();
+        Log::info('Product Created : ', ['product_id'=> $product->id , 'user_id' => Auth::id()]);
         return redirect('/products');
     }
 
