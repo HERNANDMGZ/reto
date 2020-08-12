@@ -65358,6 +65358,26 @@ pre { margin-top: 0; margin-bottom: 0; font-family: "SFMono-Regular", Consolas, 
 .highlight { background-color: #f8f8f8; }
 @charset "UTF-8";
 
+.navbar {
+  padding-top: 0px;
+}
+
+.big-padding {
+  padding: 30px;
+}
+
+.blue-grey {
+  background-color: #34495e;
+}
+
+.white-text {
+  color: white;
+}
+
+.table {
+  background-color: white;
+}
+
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
