@@ -136,7 +136,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) :Response
+    public function destroy($id)
     {
         $product = Product::findOrFail($id);
         $product->delete();
