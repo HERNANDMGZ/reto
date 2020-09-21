@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', 'HomeController@index')->middleware('verified');
+Route::get('/', 'HomeController@index')->middleware(['verified','validated']);
 
 Auth::routes(['verify' => true]);
 
-Route::resource('usuarios', 'UserController')->middleware('auth');
+Route::resource('usuarios', 'UserController')->middleware(['verified','validated']);
 
-Route::resource('products', 'ProductsController')->middleware('auth');
+Route::resource('products', 'ProductsController')->middleware(['verified','validated']);
 
-Route::resource('roles', 'RoleController')->middleware('auth');
+Route::resource('roles', 'RoleController')->middleware(['verified','validated']);
