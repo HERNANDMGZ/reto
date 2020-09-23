@@ -3,6 +3,20 @@
 @section('content')
 
     <div class="container">
+        <form action="/categories" method="POST" enctype="multipart/form-data">
+            @csrf
+
+            <div class="form-group">
+                <label for="name">Categorías</label>
+                <select name ="category" id= "category" class="form-control">
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit" class="btn btn-link">Ver</button>
+        </form>
+    </div>
         <div class="row">
             @forelse($products as $product)
             <div class="col-12 col-sm-8 col-md-6 col-lg-4">
