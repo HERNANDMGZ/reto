@@ -29,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('usuarios.create');
+        $roles = Role::all();
+        return view('usuarios.create', ['roles' => $roles]);
     }
 
     /**
