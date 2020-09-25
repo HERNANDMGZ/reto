@@ -1,7 +1,19 @@
 @extends ('layouts.app')
 
 @section('content')
-
+<div>
+    <form class="form-inline ml-3">
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" name="search" type="search" placeholder="Buscar producto..."
+                   aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 <div class="big-padding text-center blue-grey white-text">
     <h2>PRODUCTOS<a href="products/create"><button type="button" class="btn btn-success float-right">Agregar Producto</button></a></h2>
     <h6>
