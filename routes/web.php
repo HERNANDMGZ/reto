@@ -19,7 +19,7 @@ Route::get('/', 'HomeController@index')->middleware(['verified','validated']);
 
 Auth::routes(['verify' => true]);
 
-Route::resource('usuarios', 'UserController')->middleware(['verified','validated']);
+Route::resource('usuarios', 'UserController');
 
 Route::resource('products', 'ProductsController')->middleware(['verified','validated']);
 
