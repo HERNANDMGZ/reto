@@ -9,20 +9,28 @@ use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp():void
+    {
+        parent::setUp();
+        $this->seed();
+    }
     /**@test*/
+
     public function testExample()
     {
 
         $this->withoutExceptionHandling();
 
 
-        $user = factory(User::class, 1)->create(['email_verified_at'=>null]);
+        $user = factory(User::class)->create(['status'=>1]);
 
 
-        $response = $this->actingAs($user)->get(route('products'));
-        dd($response);
+        $response = $this->actingAs($user)->get(route('products.index'));
 
-        $response->assertRedirect('login');
+
+        $response->assertStatus(200);
 
     }
 }
