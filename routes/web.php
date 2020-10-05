@@ -27,4 +27,13 @@ Route::resource('roles', 'RoleController')->middleware(['verified','validated'])
 
 Route::post('/categories','CategoryController@filter');
 
+Route::resource('shops','ShopController')->middleware(['verified','validated']);
+
+
+Route::resource('carts','CartController')->middleware(['verified','validated']);
+
+
+
+
+
 

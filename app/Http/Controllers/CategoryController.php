@@ -14,6 +14,6 @@ class CategoryController extends Controller
         $category = $request->category;
         $products = Product::where('category_id',$category)->get();
         $categories = Category::all();
-        return view('welcome', ['products' => $products, 'categories' => $categories]);
+        return view('categories.filter', ['products' => $products, 'categories' => $categories]);
     }
 }
