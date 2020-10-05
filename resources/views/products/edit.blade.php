@@ -31,6 +31,12 @@
                         <label for="name">Nombre</label>
                         <input type="text" class="form-control" name="name" value="{{$product->name}}" placeholder="Nombre del articulo...">
                     </div>
+
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" class="form-control" name="slug" value="{{$product->slug}}" placeholder="Nombre del articulo...">
+                    </div>
+
                     <div class="form-group">
                         <label for="pricing">Precio</label>
                         <input type="number" class="form-control" name="pricing" value="{{$product->pricing}}" placeholder="Edita el precio...">

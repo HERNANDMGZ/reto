@@ -6,6 +6,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use phpDocumentor\Reflection\Types\Void_;
 
 class HomeController extends Controller
@@ -27,8 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $products = Product::all();
-        return view('welcome', ['products' => $products, 'categories' => $categories]);
+        $products = Product::inRandomOrder()->take(8)->get();
+        return view('welcome', ['products' => $products]);
     }
+
 }

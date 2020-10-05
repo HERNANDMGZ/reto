@@ -20,6 +20,10 @@
                         <input type="text" class="form-control" name="name" placeholder="Titulo">
                     </div>
                     <div class="form-group">
+                        <label for="name">slug</label>
+                        <input type="text" class="form-control" name="slug" placeholder="Slug">
+                    </div>
+                    <div class="form-group">
                         <label for="pricing">Precio</label>
                         <input type="number" class="form-control" name="pricing" placeholder="Precio...">
                     </div>

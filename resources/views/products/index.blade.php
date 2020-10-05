@@ -2,26 +2,25 @@
 
 @section('content')
 <div>
-    <form class="form-inline ml-3">
+    <form class="form-inline ml-md-auto">
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="search" type="search" placeholder="Buscar producto..."
-                   aria-label="Search">
+            <input class="form-control form-control-navbar" name="search" type="search" placeholder="Busqueda..." aria-label="Search">
             <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-search-plus"></i>
                 </button>
             </div>
         </div>
     </form>
-</div>
-<div class="big-padding text-center blue-grey white-text">
-    <h2>PRODUCTOS<a href="products/create"><button type="button" class="btn btn-success float-right">Agregar Producto</button></a></h2>
+
+<div class="container-fluid">
+    <h4>Articulos<a href="products/create"><button type="button" class="btn btn-success float-right">Nuevo Articulo</button></a></h4>
     <h6>
         @if($search)
         <div class ="alert alert-primary" role="alert">
-            resultados de tu busqueda "{{$search}}" son:
+            Resultados de la Busqueda"{{$search}}" son:
         </div>
-            @endif
+        @endif
     </h6>
 </div>
 <div class="container">
@@ -29,10 +28,12 @@
         <thead>
         <tr>
             <td>Id</td>
-            <td>Titulo</td>
+            <td>Nombre</td>
+            <td>slug</td>
             <td>Precio</td>
-            <td>Descripcion</td>
+            <td>Descripción</td>
             <td>Estado</td>
+            <td>Accion</td>
         </tr>
         </thead>
         <tbody>
@@ -40,6 +41,7 @@
             <tr>
                 <th scope="row">{{$product->id}}</th>
                 <td>{{$product->name}}</td>
+                <td>{{$product->slug}}</td>
                 <td>{{$product->pricing}}</td>
                 <td>{{$product->description}}</td>
                 @if($product->status === 1)

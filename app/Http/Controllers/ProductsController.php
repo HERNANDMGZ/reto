@@ -57,6 +57,7 @@ class ProductsController extends Controller
     {
         $product = new Product();
         $product->name  =request('name');
+        $product->slug  =request('slug');
         $product->description =request('description');
         $product->pricing =request('pricing');
         $product->category_id =request('category');
@@ -111,6 +112,7 @@ class ProductsController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->name  = $request->get('name');
+        $product->slug  = $request->get('slug');
         $product->pricing =$request->get('pricing');
         $product->description =$request->get('description');
         $product->status = $request->get('status');

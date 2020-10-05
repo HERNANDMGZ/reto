@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('category_id');
             $table->string('name')->unique();
+            $table->string('slug')->default('slug');
             $table->text('description');
             $table->decimal('pricing', '15', '3');
             $table->boolean('status')->default(true);

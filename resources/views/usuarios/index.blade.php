@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Lista de usuarios registrados<a href="usuarios/create"><button type="button" class="btn btn-success float-right">Agregar Usuario</button></a></h2>
+        <h2>Usuarios registrados<a href="usuarios/create"><button type="button" class="btn btn-success float-right">Agregar Usuario</button></a></h2>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -26,11 +26,11 @@
             @endif
             <td>
                 <form action="{{route('usuarios.destroy', $user->id)}}" method="POST">
-                    <a href="{{ route('usuarios.show', $user->id) }}"><button type="button" class="btn btn-secondary">Ver</button></a>
+                    <a href="{{ route('usuarios.show', $user->id) }}"><button type="button" class="btn btn-secondary">Mostrar</button></a>
                     <a href="{{ route('usuarios.edit', $user->id) }}"><button type="button" class="btn btn-primary">Editar</button></a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger">Borrar</button>
                 </form>
             </td>
         </tr>
