@@ -25,24 +25,18 @@
                 <span class="price">$75</span>
                 <span class="sale_price">{{$product->pricing}}</span>
                 <span class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half"></i></span>
-                <div class="product_options">
-                    <div class="select">
-                        <select id="size">
-                            <option value = "1">op1</option>
-                            <option value = "2">op2</option>
-                            <option value = "3">op3</option>
-                            <option value = "4">op4</option>
-                        </select>
-                    </div>
-                </div>
+
                 <div class="buying">
-                    <div class="quantity">
-                        <label for="quantity">Cant:</label>
-                        <input type="text">
-                    </div>
-                    <div class="cart">
-                        <a href="/carts" class="add">Add to Cart <i class="fa fa-shopping-cart fa-lg"></i></a>
-                    </div>
+                    <form action="{{route('shops.addToCart', $product->id)}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="quantity">
+                            <label for="quantity">Cant:</label>
+                            <input type="text" class="form-control" name="quantity">
+                        </div>
+                        <div class="cart">
+                                <button type="submit" class="add">Add to Cart<i class="fa fa-shopping-cart fa-lg"></i></button>
+                        </div>
+                    </form>
                 </div>
                 <div class="other_options">
                     <span class="SKU">#existencias</span>

@@ -31,7 +31,6 @@
 <div id="app">
     <div class="wrapper">
 
-
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light nav-right">
             <!-- Left navbar links -->
@@ -44,7 +43,7 @@
                     <a href="#" class="nav-link">Contact</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Carrito</a>
+                    <a href="shopping-cart" class="nav-link">Carrito</a>
                 </li>
             </ul>
 
