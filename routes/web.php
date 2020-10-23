@@ -29,8 +29,11 @@ Route::post('/categories','CategoryController@filter');
 
 Route::resource('shops','ShopController')->middleware(['verified','validated']);
 
-
 Route::resource('carts','CartController')->middleware(['verified','validated']);
+
+Route::post('add-to-cart/{product}', 'ShopController@addToCart')->name('shops.addToCart');
+
+Route::get('shopping-cart', 'ShopController@showCart')->name('shops.showCart');
 
 
 
