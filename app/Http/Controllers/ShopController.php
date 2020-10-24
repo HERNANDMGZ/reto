@@ -158,4 +158,18 @@ class ShopController extends Controller
 
         $order->update();
     }
+
+    public function deleteCartItem()
+    {
+
+    //$cartItem= ProductOrder::
+
+    }
+
+
+    public function getCheckout()
+    {
+
+        return view('shops.getCheckout');
+    }
 }
