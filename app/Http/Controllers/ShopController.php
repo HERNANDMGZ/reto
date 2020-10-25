@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 
 use App\Category;
+use App\Invoice;
 use App\Order;
 use App\Product;
 use App\ProductOrder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use PhpParser\Node\Expr\New_;
 
 class ShopController extends Controller
 {
@@ -162,7 +165,6 @@ class ShopController extends Controller
     public function deleteCartItem()
     {
 
-    //$cartItem= ProductOrder::
 
     }
 
@@ -172,4 +174,45 @@ class ShopController extends Controller
 
         return view('shops.getCheckout');
     }
+
+
+    public function payment(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $orderGenerate = Order::where('user_id', $user->id)
+            ->where('status', 'cotizacion')
+            ->first();
+
+        $order = Order::findOrFail($orderGenerate->id);
+
+
+        $order->name= $request->get('name');
+        $order->address_payment =$request->get('address_payment');
+        $order->status = 'pendiente';
+        $order->update();
+
+        $this->redirectionToWebCheckout($orderGenerate->id);
+    }
+
+    private function redirectionToWebCheckout($id)
+    {
+
+        $order = Order::find($id);
+
+        $invoices = new Invoice();
+
+        $invoices->name  =$order->name;
+        $invoices->status  =$order->status;
+        $invoices->total_price  =$order->total_price;
+        $invoices->address_payment =$order->address_payment;
+        $invoices->order_id =$order->id;
+        $invoices->reference ='1234';
+        $invoices->expiration = new Carbon('tomorrow');
+
+        $invoices->save();
+        dd('pagado');
+    }
+
 }
