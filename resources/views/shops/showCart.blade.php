@@ -53,7 +53,7 @@
                                 <h4 class="text-right">Total <strong>{{ $totalPricing }}</strong></h4>
                             </div>
                             <div class="col-xs-3">
-                                <a class="btn btn-primary" href="{{route('shops.getCheckout')}}" role="button">Resumen</a>
+                                <a class="btn btn-primary" href="{{route('shops.getCheckout')}}" role="button">Pagar</a>
                             </div>
                         </div>
                     </div>
