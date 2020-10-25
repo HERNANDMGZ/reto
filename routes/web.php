@@ -38,6 +38,11 @@ Route::get('shopping-cart', 'ShopController@showCart')->name('shops.showCart');
 Route::get('checkout', 'ShopController@getCheckout')->name('shops.getCheckout');
 
 
+Route::post('payment', 'ShopController@payment')->name('shops.payment');
+
+
+
+
 
 
 
