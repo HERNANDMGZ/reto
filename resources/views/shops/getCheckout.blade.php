@@ -52,6 +52,23 @@
                                 <input type="text" name="address_payment" class="form-control" placeholder="Direccion de envio">
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <strong>celular:</strong></div>
+                            <div class="col-md-12">
+                                <input type="text" name="address_payment" class="form-control" placeholder="Direccion de envio">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <strong>email:</strong></div>
+                            <div class="col-md-12">
+                                <input type="text" name="address_payment" class="form-control" placeholder="Direccion de envio">
+                            </div>
+                        </div>
+
                     </div>
                         <!--SHIPPING METHOD END-->
 
