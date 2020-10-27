@@ -107,6 +107,7 @@ return [
     */
 
     'faker_locale' => 'en_US',
+    'faker_services' => env('FAKER_SERVICES', true),
 
     /*
     |--------------------------------------------------------------------------

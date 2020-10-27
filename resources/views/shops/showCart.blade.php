@@ -17,7 +17,7 @@
                                     <h5><span class="glyphicon glyphicon-shopping-cart"></span> Carrito de Compras</h5>
                                 </div>
                                 <div class="col-xs-4">
-                                    <a href="/shops" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Continuar Comprando</a>
+                                    <a href="/shops" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Regresar a la TIENDA </a>
                                 </div>
                             </div>
                         </div>
@@ -50,10 +50,10 @@
                     <div class="panel-footer">
                         <div class="row text-center">
                             <div class="col-xs-9">
-                                <h4 class="text-right">Total <strong>{{ $totalPricing }}</strong></h4>
+                                <h4 class="text-right">Precio Total <strong>{{ $totalPricing }}</strong></h4>
                             </div>
                             <div class="col-xs-3">
-                                <a class="btn btn-primary" href="{{route('shops.getCheckout')}}" role="button">Pagar</a>
+                                <a class="btn btn-primary" href="{{route('shops.getCheckout')}}" role="button">Continuar</a>
                             </div>
                         </div>
                     </div>

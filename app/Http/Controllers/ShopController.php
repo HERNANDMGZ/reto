@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Category;
+use App\Contracts\WebCheckoutContract;
 use App\Invoice;
 use App\Order;
 use App\Product;
@@ -175,10 +176,31 @@ class ShopController extends Controller
         return view('shops.getCheckout');
     }
 
-
-    public function payment(Request $request)
+    public function detail(WebCheckoutContract $webCheckout, string $reference)
     {
+        $invoice = Invoice::select(['request_id'])
+            ->where('reference', $reference)
+            ->first();
 
+        $response = $webCheckout->query($invoice->request_id);
+
+        //TODO procesar la respuesta
+
+        return view('shops.detail', $response);
+    }
+
+    public function viewMock(string $reference)
+    {
+        $invoice = Invoice::select(['total_price', 'reference'])
+            ->where('reference', $reference)
+            ->first();
+
+        return view('shops.viewMock', ['invoice' => $invoice]);
+    }
+
+
+    public function payment(WebCheckoutContract $webCheckout, Request $request)
+    {
         $user = Auth::user();
 
         $orderGenerate = Order::where('user_id', $user->id)
@@ -188,31 +210,57 @@ class ShopController extends Controller
         $order = Order::findOrFail($orderGenerate->id);
 
 
-        $order->name= $request->get('name');
-        $order->address_payment =$request->get('address_payment');
+        $order->name = $request->get('name');
+        $order->address_payment = $request->get('address_payment');
         $order->status = 'pendiente';
-        $order->update();
+        $order->save();
 
-        $this->redirectionToWebCheckout($orderGenerate->id);
+        $invoice = $this->redirectionToWebCheckout($orderGenerate->id);
+
+        $payment = [
+            'locale' => 'es_CO',
+            'payment' => [
+                'reference' => $invoice->reference,
+                'description' => 'Compra tienda virtual',
+                'amount' => [
+                    'currency' => 'COP',
+                    'total' => $invoice->total_price,
+                    'allowPartial' => 'false',
+                ],
+            ],
+            'expiration' => $invoice->expiration,
+            'returnUrl' => route('shops.paymentDetail', $invoice->reference),
+            'ipAddress' => $request->ip(),
+            'userAgent' => $request->userAgent(),
+        ];
+
+        $response = $webCheckout->request($payment);
+
+        if ($response['status']['status'] === 'OK' && isset($response['processUrl']) && isset($response['requestId'])) {
+            $invoice->request_id = $response['requestId'];
+            $invoice->process_url = $response['processUrl'];
+            $invoice->save();
+
+            return redirect($response['processUrl']);
+        }
     }
-
-    private function redirectionToWebCheckout($id)
+    private function redirectionToWebCheckout($id): Invoice
     {
-
         $order = Order::find($id);
 
-        $invoices = new Invoice();
+        $invoice = new Invoice();
 
-        $invoices->name  =$order->name;
-        $invoices->status  =$order->status;
-        $invoices->total_price  =$order->total_price;
-        $invoices->address_payment =$order->address_payment;
-        $invoices->order_id =$order->id;
-        $invoices->reference ='1234';
-        $invoices->expiration = new Carbon('tomorrow');
+        $invoice->name  =$order->name;
+        $invoice->status  =$order->status;
+        $invoice->total_price  =$order->total_price;
+        $invoice->address_payment =$order->address_payment;
+        $invoice->order_id =$order->id;
+        $invoice->reference = uniqid();
+        $invoice->expiration = new Carbon('tomorrow');
 
-        $invoices->save();
-        dd('pagado');
+        $invoice->save();
+
+        return $invoice;
     }
-
 }
+

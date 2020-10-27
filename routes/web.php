@@ -40,7 +40,9 @@ Route::get('checkout', 'ShopController@getCheckout')->name('shops.getCheckout');
 
 Route::post('payment', 'ShopController@payment')->name('shops.payment');
 
+Route::get('payment/detail/{reference}', 'ShopController@detail')->name('shops.paymentDetail');
 
+Route::get('payment/web-checkout-mock/{reference}', 'ShopController@viewMock')->name('shops.viewMock');
 
 
 
