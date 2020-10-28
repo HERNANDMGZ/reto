@@ -27,11 +27,22 @@
                 <span class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half"></i></span>
 
                 <div class="buying">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form action="{{route('shops.addToCart', $product->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
+
+
                         <div class="quantity">
                             <label for="quantity">Cant:</label>
-                            <input type="text" class="form-control" name="quantity">
+                            <input type="number" class="form-control" name="quantity">
                         </div>
                         <div class="cart">
                                 <button type="submit" class="add">Add to Cart<i class="fa fa-shopping-cart fa-lg"></i></button>

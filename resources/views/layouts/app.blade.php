@@ -43,7 +43,7 @@
                     <a href="#" class="nav-link">Contact</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="shopping-cart" class="nav-link">Carrito</a>
+                    <a href="{{route('shops.showCart')}}" class="nav-link">Carrito</a>
                 </li>
             </ul>
 

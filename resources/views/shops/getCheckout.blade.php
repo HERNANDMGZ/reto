@@ -11,7 +11,6 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th class="center">No.</th>
                         <th class="left">Descripcion</th>
                         <th class="center">Cantidad</th>
                         <th class="right">Costo Unitario</th>
@@ -21,7 +20,6 @@
                     <tbody>
                     @foreach($products as $product)
                         <tr>
-                            <td class="center">{{$product->id}}</td>
                             <td class="left">{{$product->find($product->id)->name}}</td>
                             <td class="center">{{$product->quantity}}</td>
                             <td class="right">{{$product->find($product->id)->pricing}}</td>

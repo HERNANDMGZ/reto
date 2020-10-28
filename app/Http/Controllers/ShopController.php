@@ -5,21 +5,23 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Contracts\WebCheckoutContract;
+use App\Http\Requests\ProductOrderFormRequest;
 use App\Invoice;
 use App\Order;
 use App\Product;
 use App\ProductOrder;
 use Carbon\Carbon;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use PhpParser\Node\Expr\New_;
+
 
 class ShopController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -32,29 +34,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
      * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
@@ -66,48 +45,14 @@ class ShopController extends Controller
         return view('shops.show', ['product' => $product, 'categories' => $categories]);
 
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @param ProductOrderFormRequest $request
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
-
-
-
-
-
-
-    public function addToCart(Product $product, Request $request)
+    public function addToCart(ProductOrderFormRequest $request,  Product $product)
     {
 
         $order = $this->generateOrder();
@@ -127,14 +72,12 @@ class ShopController extends Controller
 
     }
 
-
-
-
+    /**
+     * @return Order
+     */
     private function generateOrder()
     {
-
         $user = Auth::user();
-
         $orderGenerate = Order::where('user_id', $user->id)
             ->where('status', 'cotizacion')
             ->first();
@@ -152,6 +95,9 @@ class ShopController extends Controller
         return $order;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showCart()
     {
         $user = Auth::user();
@@ -170,6 +116,10 @@ class ShopController extends Controller
         return view('shops.showCart', ['products' => null, 'totalPricing' => null]);
     }
 
+    /**
+     * @param $totalPricing
+     * @param $id
+     */
     private function updateTotalPrice($totalPricing, $id)
     {
         $order = Order::findOrFail($id);
@@ -178,7 +128,10 @@ class ShopController extends Controller
         $order->update();
     }
 
-
+    /**
+     * @param Order $order
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getCheckout(Order $order)
     {
 
@@ -186,8 +139,11 @@ class ShopController extends Controller
         return view('shops.getCheckout',['products' => $productOrder]);
     }
 
-
-
+    /**
+     * @param WebCheckoutContract $webCheckout
+     * @param string $reference
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detail(WebCheckoutContract $webCheckout, string $reference)
     {
         $invoice = Invoice::where('reference', $reference)
@@ -204,7 +160,10 @@ class ShopController extends Controller
         return view('shops.detail', ['response' => $response, 'invoice' => $invoice, 'products' => $productOrder]);
     }
 
-
+    /**
+     * @param string $reference
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function viewMock(string $reference)
     {
         $invoice = Invoice::select(['total_price', 'reference'])
@@ -214,10 +173,11 @@ class ShopController extends Controller
         return view('shops.viewMock', ['invoice' => $invoice]);
     }
 
-
-
-
-
+    /**
+     * @param WebCheckoutContract $webCheckout
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function payment(WebCheckoutContract $webCheckout, Request $request)
     {
         $user = Auth::user();
@@ -227,7 +187,6 @@ class ShopController extends Controller
             ->first();
 
         $order = Order::findOrFail($orderGenerate->id);
-
 
         $order->name = $request->get('name');
         $order->address_payment = $request->get('address_payment');
@@ -266,8 +225,11 @@ class ShopController extends Controller
         }
     }
 
-
-    private function redirectionToWebCheckout($id): Invoice
+    /**
+     * @param $id
+     * @return Invoice
+     */
+    private function redirectionToWebCheckout($id)
     {
         $order = Order::find($id);
 

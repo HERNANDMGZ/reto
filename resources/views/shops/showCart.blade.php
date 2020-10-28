@@ -38,11 +38,6 @@
                                         <div class="col-xs-4">
                                             <h6 class="product-name"><strong>{{$product->quantity}}</strong>Unidades</h6>
                                         </div>
-                                        <div class="col-xs-2">
-                                            <button type="button" class="btn btn-link btn-xs">
-                                                <span class="glyphicon glyphicon-trash"> </span>
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
                             @endforeach
