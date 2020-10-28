@@ -2,52 +2,32 @@
 
 @section('content')
 
-    <h1>Estado del pago: {{$status['status']}}</h1>
-
     <div class="container-fluid">
         <div id="ui-view" data-select2-id="ui-view">
             <div>
                 <div class="card">
-                    <div class="card-header">Invoice
-                        <strong>#BBB-10010110101938</strong>
+                    <div class="card-header">Factura #
+                        <strong>{{$response['requestId']}}</strong>
                         <a class="btn btn-sm btn-secondary float-right mr-1 d-print-none" href="#" >
                             <i class="fa fa-print"></i> Print</a>
                         <a class="btn btn-sm btn-info float-right mr-1 d-print-none" href="#" >
                             <i class="fa fa-save"></i> Save</a>
                     </div>
                     <div class="card-body">
+                        <div class="row mb-12">
+                            <div class="col-sm-12">
+                                <h6 class="mb-3">ESTADO: {{$response['status']['status']}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
                         <div class="row mb-4">
                             <div class="col-sm-4">
-                                <h6 class="mb-3">From:</h6>
-                                <div>
-                                    <strong>BBBootstrap.com</strong>
-                                </div>
-                                <div>42, Awesome Enclave</div>
-                                <div>New York City, New york, 10394</div>
-                                <div>Email: admin@bbbootstrap.com</div>
-                                <div>Phone: +48 123 456 789</div>
-                            </div>
-                            <div class="col-sm-4">
-                                <h6 class="mb-3">To:</h6>
-                                <div>
-                                    <strong>BBBootstrap.com</strong>
-                                </div>
-                                <div>42, Awesome Enclave</div>
-                                <div>New York City, New york, 10394</div>
-                                <div>Email: admin@bbbootstrap.com</div>
-                                <div>Phone: +48 123 456 789</div>
-                            </div>
-                            <div class="col-sm-4">
-                                <h6 class="mb-3">Details:</h6>
-                                <div>Invoice
-                                    <strong>#BBB-10010110101938</strong>
-                                </div>
-                                <div>April 30, 2019</div>
-                                <div>VAT: NYC09090390</div>
-                                <div>Account Name: BBBootstrap Inc</div>
-                                <div>
-                                    <strong>SWIFT code: 99 8888 7777 6666 5555</strong>
-                                </div>
+                                <h6 class="mb-3">Detalle del pagador:</h6>
+                                <div>Nombre = {{$invoice->name}}</div>
+                                <div>Direccion = {{$invoice->address_payment}}</div>
+                                <div>Telefono = {{$invoice->phone}}</div>
+                                <div>Email = {{$invoice->email}}</div>
                             </div>
                         </div>
                         <div class="table-responsive-sm">
@@ -55,20 +35,22 @@
                                 <thead>
                                 <tr>
                                     <th class="center">No.</th>
-                                    <th>Item</th>
+                                    <th class="left">Descripcion</th>
                                     <th class="center">Cantidad</th>
                                     <th class="right">Costo Unitario</th>
                                     <th class="right">Total</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="center"></td>
-                                    <td class="left"></td>
-                                    <td class="center"></td>
-                                    <td class="right"></td>
-                                    <td class="right"></td>
-                                </tr>
+                                @foreach($products as $product)
+                                    <tr>
+                                        <td class="center">{{$product->id}}</td>
+                                        <td class="left">{{$product->find($product->id)->name}}</td>
+                                        <td class="center">{{$product->quantity}}</td>
+                                        <td class="right">{{$product->find($product->id)->pricing}}</td>
+                                        <td class="right">{{$product->product_pricing}}</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -78,22 +60,10 @@
                                     <tbody>
                                     <tr>
                                         <td class="left">
-                                            <strong>Subtotal</strong>
-                                        </td>
-                                        <td class="right"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="left">
-                                            <strong>Discount</strong>
-                                        </td>
-                                        <td class="right"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="left">
                                             <strong>Total</strong>
                                         </td>
                                         <td class="right">
-                                            <strong></strong>
+                                            <strong>{{$response['request']['payment']['amount']['total']}}</strong>
                                         </td>
                                     </tr>
                                     </tbody>
