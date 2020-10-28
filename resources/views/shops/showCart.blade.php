@@ -22,41 +22,50 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body">
-                        @foreach($products as $product)
-                        <div class="row">
-                            <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
-                            </div>
-                            <div class="col-xs-4">
-                                <h4 class="product-name"><strong>{{$product->find($product->id)->name}}</strong></h4><h4><small>Product description</small></h4>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="col-xs-6 text-right">
-                                    <h6><strong>$ {{$product->find($product->id)->pricing}}<span class="text-muted"> X </span></strong></h6>
+                    @if($products)
+                        <div class="panel-body">
+                            @foreach($products as $product)
+                                <div class="row">
+                                    <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h4 class="product-name"><strong>{{$product->find($product->id)->name}}</strong></h4><h4><small>Product description</small></h4>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="col-xs-6 text-right">
+                                            <h6><strong>$ {{$product->find($product->id)->pricing}}<span class="text-muted"> X </span></strong></h6>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <h6 class="product-name"><strong>{{$product->quantity}}</strong>Unidades</h6>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <button type="button" class="btn btn-link btn-xs">
+                                                <span class="glyphicon glyphicon-trash"> </span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-xs-4">
-                                    <h6 class="product-name"><strong>{{$product->quantity}}</strong>Unidades</h6>
+                            @endforeach
+                            <hr>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row text-center">
+                                <div class="col-xs-9">
+                                    <h4 class="text-right">Precio Total <strong>{{ $totalPricing }}</strong></h4>
                                 </div>
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-link btn-xs">
-                                        <span class="glyphicon glyphicon-trash"> </span>
-                                    </button>
+                                <div class="col-xs-3">
+                                    <a class="btn btn-primary" href="{{route('shops.getCheckout', $id_order)}}" role="button">Continuar</a>
                                 </div>
                             </div>
                         </div>
-                        @endforeach
-                        <hr>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="row text-center">
-                            <div class="col-xs-9">
-                                <h4 class="text-right">Precio Total <strong>{{ $totalPricing }}</strong></h4>
+                    @else
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-12">Aun no tienes productos agregados</div>
                             </div>
-                            <div class="col-xs-3">
-                                <a class="btn btn-primary" href="{{route('shops.getCheckout')}}" role="button">Continuar</a>
-                            </div>
+                            <hr>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
