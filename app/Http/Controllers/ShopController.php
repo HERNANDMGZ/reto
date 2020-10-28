@@ -100,6 +100,13 @@ class ShopController extends Controller
         //
     }
 
+
+
+
+
+
+
+
     public function addToCart(Product $product, Request $request)
     {
 
@@ -113,12 +120,15 @@ class ShopController extends Controller
 
         $productUser->save();
 
-        $totalPricing = ProductOrder::sum('product_pricing');
+        $totalPricing = ProductOrder::where('order_id', $order->id)->sum('product_pricing');
         $this->updateTotalPrice($totalPricing, $order->id);
 
         return redirect('shops');
 
     }
+
+
+
 
     private function generateOrder()
     {
@@ -150,9 +160,14 @@ class ShopController extends Controller
             ->where('status', 'cotizacion')
             ->first();
 
-        $products = ProductOrder::where('order_id', $orderGenerate->id)->get();
+        if($orderGenerate)
+        {
+            $products = ProductOrder::where('order_id', $orderGenerate->id)->get();
 
-        return view('shops.showCart', ['products' => $products, 'totalPricing' => $orderGenerate->total_price]);
+            return view('shops.showCart', ['products' => $products, 'totalPricing' => $orderGenerate->total_price, 'id_order' => $orderGenerate->id]);
+        }
+
+        return view('shops.showCart', ['products' => null, 'totalPricing' => null]);
     }
 
     private function updateTotalPrice($totalPricing, $id)
@@ -163,31 +178,32 @@ class ShopController extends Controller
         $order->update();
     }
 
-    public function deleteCartItem()
+
+    public function getCheckout(Order $order)
     {
 
-
+        $productOrder = ProductOrder::where('order_id', $order->id)->get();
+        return view('shops.getCheckout',['products' => $productOrder]);
     }
 
 
-    public function getCheckout()
-    {
-
-        return view('shops.getCheckout');
-    }
 
     public function detail(WebCheckoutContract $webCheckout, string $reference)
     {
-        $invoice = Invoice::select(['request_id'])
-            ->where('reference', $reference)
+        $invoice = Invoice::where('reference', $reference)
             ->first();
 
         $response = $webCheckout->query($invoice->request_id);
+        $invoice->status = $response['status']['status'];
+        $invoice->save();
+
+        $productOrder = ProductOrder::where('order_id', $invoice->order_id)->get();
 
         //TODO procesar la respuesta
 
-        return view('shops.detail', $response);
+        return view('shops.detail', ['response' => $response, 'invoice' => $invoice, 'products' => $productOrder]);
     }
+
 
     public function viewMock(string $reference)
     {
@@ -197,6 +213,9 @@ class ShopController extends Controller
 
         return view('shops.viewMock', ['invoice' => $invoice]);
     }
+
+
+
 
 
     public function payment(WebCheckoutContract $webCheckout, Request $request)
@@ -212,6 +231,8 @@ class ShopController extends Controller
 
         $order->name = $request->get('name');
         $order->address_payment = $request->get('address_payment');
+        $order->phone = $request->get('phone');
+        $order->email = $request->get('email');
         $order->status = 'pendiente';
         $order->save();
 
@@ -244,6 +265,8 @@ class ShopController extends Controller
             return redirect($response['processUrl']);
         }
     }
+
+
     private function redirectionToWebCheckout($id): Invoice
     {
         $order = Order::find($id);
@@ -254,6 +277,8 @@ class ShopController extends Controller
         $invoice->status  =$order->status;
         $invoice->total_price  =$order->total_price;
         $invoice->address_payment =$order->address_payment;
+        $invoice->email =$order->email;
+        $invoice->phone =$order->phone;
         $invoice->order_id =$order->id;
         $invoice->reference = uniqid();
         $invoice->expiration = new Carbon('tomorrow');

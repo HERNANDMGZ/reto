@@ -35,7 +35,7 @@ Route::post('add-to-cart/{product}', 'ShopController@addToCart')->name('shops.ad
 
 Route::get('shopping-cart', 'ShopController@showCart')->name('shops.showCart');
 
-Route::get('checkout', 'ShopController@getCheckout')->name('shops.getCheckout');
+Route::get('checkout/{order}', 'ShopController@getCheckout')->name('shops.getCheckout');
 
 
 Route::post('payment', 'ShopController@payment')->name('shops.payment');
