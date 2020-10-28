@@ -20,6 +20,8 @@ class CreateInvoicesTable extends Migration
             $table->string('status');
             $table->string('total_price');
             $table->string('address_payment');
+            $table->string('email');
+            $table->string('phone');
             $table->string('reference')->unique();
             $table->dateTime('expiration');
             $table->string('request_id')->nullable();
