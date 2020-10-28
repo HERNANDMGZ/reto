@@ -10,23 +10,24 @@
             <div class="col-md-12">
                 <table class="table table-striped">
                     <thead>
-                    <tr class="line">
-                        <td><strong>#</strong></td>
-                        <td class="text-center"><strong>Articulo</strong></td>
-                        <td class="text-right"><strong>Precio</strong></td>
+                    <tr>
+                        <th class="center">No.</th>
+                        <th class="left">Descripcion</th>
+                        <th class="center">Cantidad</th>
+                        <th class="right">Costo Unitario</th>
+                        <th class="right">Total</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><strong>Template Design</strong><br>A website template is a pre-designed webpage, or set of webpages, that anyone can modify with their own content and images to setup a website.</td>
-                        <td class="text-right">$1,125.00</td>
-                    </tr>
-                    <tr>
-                        <td colspan="1">
-                        </td><td class="text-right"><strong>Total</strong></td>
-                        <td class="text-right"><strong>$2,400.00</strong></td>
-                    </tr>
+                    @foreach($products as $product)
+                        <tr>
+                            <td class="center">{{$product->id}}</td>
+                            <td class="left">{{$product->find($product->id)->name}}</td>
+                            <td class="center">{{$product->quantity}}</td>
+                            <td class="right">{{$product->find($product->id)->pricing}}</td>
+                            <td class="right">{{$product->product_pricing}}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -35,9 +36,9 @@
         <div class="row">
             <div class="col-sm-6">
                 <form action="/payment" method="POST" enctype="multipart/form-data">
-                    @csrf
+                @csrf
 
-                    <!--SHIPPING METHOD-->
+                <!--SHIPPING METHOD-->
                     <div class="panel-body">
                         <div class="form-group">
                             <div class="col-md-6 col-xs-12">
@@ -57,7 +58,7 @@
                             <div class="col-md-12">
                                 <strong>celular:</strong></div>
                             <div class="col-md-12">
-                                <input type="text" name="address_payment" class="form-control" placeholder="Direccion de envio">
+                                <input type="text" name="phone" class="form-control" placeholder="Telefono">
                             </div>
                         </div>
 
@@ -65,22 +66,15 @@
                             <div class="col-md-12">
                                 <strong>email:</strong></div>
                             <div class="col-md-12">
-                                <input type="text" name="address_payment" class="form-control" placeholder="Direccion de envio">
+                                <input type="text" name="email" class="form-control" placeholder="Correo">
                             </div>
                         </div>
 
                     </div>
-                        <!--SHIPPING METHOD END-->
-
+                    <!--SHIPPING METHOD END-->
                     <button type="submit" class="btn btn-primary">continuar</button>
                 </form>
             </div>
         </div>
-
-
-
-
-
-
 
 @endsection
