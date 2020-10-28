@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Contracts\WebCheckoutContract;
+use App\Invoice;
+use Carbon\Carbon;
 
 class PlaceToPayFaker implements WebCheckoutContract
 {
@@ -15,20 +17,21 @@ class PlaceToPayFaker implements WebCheckoutContract
                 'message' => 'La petición se ha procesado correctamente',
                 'date' => '2020-03-04T16:50:02-05:00',
             ],
-            'requestId' => 181348,
+            'requestId' => rand(100000,999999),
             'processUrl' => route('shops.viewMock', $payment['payment']['reference']),
         ];
     }
 
     public function query(int $id): array
     {
+        $invoice = Invoice::where('request_id', $id)->first();
         return [
-            'requestId' => 181348,
+            'requestId' => $invoice->request_id,
             'status' => [
                 'status' => 'APPROVED',
                 'reason' => '00',
                 'message' => 'La petición ha sido aprobada exitosamente',
-                'date' => '2019-03-04T17:27:59-05:00'
+                'date' => Carbon::now(),
             ],
             'request' => [
                 'locale' => 'es_CO',
@@ -45,7 +48,7 @@ class PlaceToPayFaker implements WebCheckoutContract
                     'description' => 'Pago de prueba 04/03/2019',
                     'amount' => [
                         'currency' => 'COP',
-                        'total' => '10000'
+                        'total' => $invoice->total_price
                     ],
                     'allowPartial' => false,
                     'subscribe' => false
@@ -57,10 +60,10 @@ class PlaceToPayFaker implements WebCheckoutContract
                         'displayOn' => 'none'
                     ]
                 ],
-                'returnUrl' => 'https://mysite.com/response/3210',
+                'returnUrl' => $invoice->process_url,
                 'ipAddress' => '127.0.0.1',
                 'userAgent' => 'PlacetoPay Sandbox',
-                'expiration' => '2019-03-05T00:00:00-05:00'
+                'expiration' => $invoice->expiration,
             ],
             'payment' => [
                 [
